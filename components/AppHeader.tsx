@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import { useAdmin } from "@/lib/client";
@@ -43,9 +44,17 @@ export function AppHeader() {
             // 빠른 연타 동안엔 네비게이션 막아 시크릿 활성화 도움
             if (tapCount.current > 1) e.preventDefault();
           }}
-          className="text-lg font-semibold tracking-tight select-none"
+          aria-label="홈"
+          className="select-none flex items-center"
         >
-          🎳 볼링 스코어
+          <Image
+            src="/logo.png"
+            alt="Bolic"
+            width={1024}
+            height={1024}
+            priority
+            className="h-10 w-auto"
+          />
         </Link>
 
         {hydrated && admin && (
