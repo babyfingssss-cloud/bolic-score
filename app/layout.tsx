@@ -7,7 +7,7 @@ const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "볼링 스코어",
+  title: "BOLIC",
   description: "팀, 볼러, 핸디캡까지 함께 관리하는 볼링 점수 기록 앱",
 };
 
