@@ -207,8 +207,6 @@ function StartMatch({ onError }: { onError: (msg: string) => void }) {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder={`경기 이름 (예: ${today} 모임)`}
-          lang="ko"
-          autoCapitalize="off"
           className="w-full rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <button
@@ -461,8 +459,6 @@ function BowlerSection({
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="볼러 이름"
-            lang="ko"
-            autoCapitalize="off"
             className="rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <input
@@ -550,8 +546,6 @@ function BowlerRow({
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
-          lang="ko"
-          autoCapitalize="off"
           className="flex-1 rounded border border-zinc-300 dark:border-zinc-700 bg-transparent px-2 py-1 text-sm"
         />
         <input
@@ -648,8 +642,6 @@ function TeamSection({
           value={teamName}
           onChange={(e) => setTeamName(e.target.value)}
           placeholder="새 팀 이름"
-          lang="ko"
-          autoCapitalize="off"
           className="flex-1 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <button
