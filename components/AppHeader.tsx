@@ -45,7 +45,7 @@ export function AppHeader() {
             if (tapCount.current > 1) e.preventDefault();
           }}
           aria-label="홈"
-          className="select-none flex items-center"
+          className="select-none flex items-center gap-2"
         >
           <Image
             src="/logo.png"
@@ -56,6 +56,7 @@ export function AppHeader() {
             unoptimized
             className="h-10 w-auto"
           />
+          <span className="text-xl font-extrabold tracking-tight">BOLIC</span>
         </Link>
 
         {hydrated && admin && (
