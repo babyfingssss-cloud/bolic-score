@@ -275,7 +275,7 @@ function ActiveMatchAdmin({
         .map((b) => b.id);
       const g = await createGame(match.id, orderedIds);
       setPickerOpen(false);
-      router.push(`/games/${g.id}`);
+      router.replace(`/games/${g.id}`);
     } catch (err) {
       onError(String((err as Error).message ?? err));
       setCreatingGame(false);
@@ -544,22 +544,29 @@ function BowlerRow({
 
   if (editing) {
     return (
-      <li className="flex items-center gap-2 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-2">
+      <li className="flex items-center gap-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-2">
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="flex-1 rounded border border-zinc-300 dark:border-zinc-700 bg-transparent px-2 py-1 text-sm"
+          className="min-w-0 flex-1 rounded border border-zinc-300 dark:border-zinc-700 bg-transparent px-2 py-1 text-sm"
         />
         <input
           value={handi}
           onChange={(e) => setHandi(e.target.value.replace(/[^0-9-]/g, ""))}
           inputMode="numeric"
-          className="w-14 rounded border border-zinc-300 dark:border-zinc-700 bg-transparent px-2 py-1 text-center text-sm"
+          className="shrink-0 w-12 rounded border border-zinc-300 dark:border-zinc-700 bg-transparent px-1.5 py-1 text-center text-sm"
         />
-        <button onClick={save} className="text-blue-600 text-sm font-medium">
+        <button
+          onClick={save}
+          onMouseDown={(e) => e.preventDefault()}
+          className="shrink-0 whitespace-nowrap text-blue-600 text-sm font-medium px-1"
+        >
           저장
         </button>
-        <button onClick={() => setEditing(false)} className="text-zinc-500 text-sm">
+        <button
+          onClick={() => setEditing(false)}
+          className="shrink-0 whitespace-nowrap text-zinc-500 text-sm px-1"
+        >
           취소
         </button>
       </li>
