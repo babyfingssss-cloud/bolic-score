@@ -22,6 +22,7 @@ export type Bowler = {
   team_id: string | null;
   name: string;
   handicap: number;
+  claimed_at: string | null;
   created_at: string;
 };
 

@@ -40,6 +40,7 @@ create table bowlers (
   team_id uuid references teams(id) on delete set null,
   name text not null,
   handicap integer not null default 0,
+  claimed_at timestamptz,
   created_at timestamptz not null default now()
 );
 create index bowlers_match_id_idx on bowlers(match_id);

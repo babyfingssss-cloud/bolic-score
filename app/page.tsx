@@ -19,6 +19,7 @@ import {
   listMatchGameBowlers,
   listMatchGames,
   listMatchTeams,
+  releaseBowler,
   updateBowler,
   updateGameBowlerScore,
 } from "@/lib/db";
@@ -802,8 +803,16 @@ function UserHome({
             )}
           </div>
           <button
-            onClick={() => {
-              if (confirm("볼러 선택을 해제할까요?")) setBowlerId(null);
+            onClick={async () => {
+              if (!confirm("볼러 선택을 해제할까요?")) return;
+              if (bowlerId) {
+                try {
+                  await releaseBowler(bowlerId);
+                } catch {
+                  /* 선점 해제 실패해도 로컬은 그대로 진행 */
+                }
+              }
+              setBowlerId(null);
             }}
             className="shrink-0 text-xs font-medium px-3 py-1.5 rounded-full border border-zinc-300 dark:border-zinc-700 text-zinc-600 dark:text-zinc-300 active:bg-zinc-100 dark:active:bg-zinc-800"
           >
@@ -865,7 +874,18 @@ function UserHome({
       <BowlerPickerModal
         open={pickerOpen}
         onClose={() => setPickerOpen(false)}
-        onPick={(id) => setBowlerId(id)}
+        currentBowlerId={bowlerId}
+        onPick={async (id) => {
+          // 이전 볼러가 있고 다른 볼러로 변경하는 경우 이전 선점 해제
+          if (bowlerId && bowlerId !== id) {
+            try {
+              await releaseBowler(bowlerId);
+            } catch {
+              /* 무시 */
+            }
+          }
+          setBowlerId(id);
+        }}
       />
     </div>
   );

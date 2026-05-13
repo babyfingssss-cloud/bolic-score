@@ -13,10 +13,12 @@ export function BowlerPickerModal({
   open,
   onClose,
   onPick,
+  currentBowlerId,
 }: {
   open: boolean;
   onClose: () => void;
   onPick: (bowlerId: string) => void;
+  currentBowlerId?: string | null;
 }) {
   const [teams, setTeams] = useState<Team[]>([]);
   const [bowlers, setBowlers] = useState<Bowler[]>([]);
@@ -74,9 +76,11 @@ export function BowlerPickerModal({
     if (!pickedBowler) return;
     setBusy(true);
     try {
-      if (teamId !== pickedBowler.team_id) {
-        await updateBowler(pickedBowler.id, { team_id: teamId });
-      }
+      // 팀 변경(필요 시) + 본인으로 선점
+      await updateBowler(pickedBowler.id, {
+        ...(teamId !== pickedBowler.team_id ? { team_id: teamId } : {}),
+        claimed_at: new Date().toISOString(),
+      });
       onPick(pickedBowler.id);
       onClose();
     } catch (e) {
@@ -86,10 +90,15 @@ export function BowlerPickerModal({
     }
   }
 
+  // 다른 디바이스가 선점한 볼러는 본인 외에는 숨김
+  const visibleBowlers = bowlers.filter(
+    (b) => b.claimed_at === null || b.id === currentBowlerId,
+  );
+
   const grouped = teams
-    .map((t) => ({ team: t, members: bowlers.filter((b) => b.team_id === t.id) }))
+    .map((t) => ({ team: t, members: visibleBowlers.filter((b) => b.team_id === t.id) }))
     .filter((g) => g.members.length > 0);
-  const unassigned = bowlers.filter((b) => b.team_id === null);
+  const unassigned = visibleBowlers.filter((b) => b.team_id === null);
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-end sm:items-center justify-center z-50 sm:p-4">

@@ -104,9 +104,25 @@ export async function createBowler(
 
 export async function updateBowler(
   id: string,
-  patch: Partial<Pick<Bowler, "name" | "handicap" | "team_id">>,
+  patch: Partial<Pick<Bowler, "name" | "handicap" | "team_id" | "claimed_at">>,
 ): Promise<void> {
   const { error } = await supabase.from("bowlers").update(patch).eq("id", id);
+  if (error) throw error;
+}
+
+export async function claimBowler(id: string): Promise<void> {
+  const { error } = await supabase
+    .from("bowlers")
+    .update({ claimed_at: new Date().toISOString() })
+    .eq("id", id);
+  if (error) throw error;
+}
+
+export async function releaseBowler(id: string): Promise<void> {
+  const { error } = await supabase
+    .from("bowlers")
+    .update({ claimed_at: null })
+    .eq("id", id);
   if (error) throw error;
 }
 
