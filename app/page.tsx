@@ -211,6 +211,7 @@ function StartMatch({ onError }: { onError: (msg: string) => void }) {
         />
         <button
           type="submit"
+          onMouseDown={(e) => e.preventDefault()}
           disabled={!name.trim() || busy}
           className="w-full rounded-lg bg-emerald-600 text-white py-3 font-medium active:bg-emerald-700 disabled:opacity-50"
         >
@@ -471,6 +472,7 @@ function BowlerSection({
         </div>
         <button
           type="submit"
+          onMouseDown={(e) => e.preventDefault()}
           disabled={!name.trim()}
           className="w-full rounded-lg bg-blue-600 text-white py-2 font-medium active:bg-blue-700 disabled:opacity-50"
         >
@@ -646,6 +648,7 @@ function TeamSection({
         />
         <button
           type="submit"
+          onMouseDown={(e) => e.preventDefault()}
           disabled={!teamName.trim()}
           className="rounded-lg bg-blue-600 text-white px-4 py-2 font-medium active:bg-blue-700 disabled:opacity-50"
         >
